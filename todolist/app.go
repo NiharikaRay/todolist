@@ -139,7 +139,7 @@ func (a *App) ChangeStatus(input string) {
 	a.Load()
 	id := a.getId(input)
 
-	if id == 1 {
+	if id == -1 {
 		return
 	}
 
@@ -153,7 +153,7 @@ func (a *App) ChangeStatus(input string) {
 	parser := &Parser{}
 	if parser.ParseStatusTodo(todo, input) {
 		a.Save()
-		fmt.Println("Todo updated.")
+		fmt.Println("Todo status changed.")
 	}
 }
 
