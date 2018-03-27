@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
+	"../todolist/todolist"
 	"github.com/fatih/color"
-	"github.com/gammons/todolist/todolist"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -136,7 +136,11 @@ func usage() {
 
 	blueBold.Println("\nGarbage Collection")
 	yellow.Println("\ttodo gc")
-	fmt.Println("\tDeletes all archived todos.\n")
+	fmt.Println("\tDeletes all archived todos.")
+
+	blueBold.Println("\nChange Status")
+	yellow.Println("\ttodo cs 12 in progress")
+	fmt.Println("\t Change the status of a task")
 
 	fmt.Println("Todolist was lovingly crafted by Grant Ammons (https://twitter.com/gammons).")
 	fmt.Println("For full documentation, please visit http://todolist.site")
@@ -157,6 +161,8 @@ func routeInput(command string, input string) {
 		app.CompleteTodo(input)
 	case "uc", "uncomplete":
 		app.UncompleteTodo(input)
+	case "cs", "changestatus":
+		app.ChangeStatus(input)
 	case "ar", "archive":
 		app.ArchiveTodo(input)
 	case "uar", "unarchive":

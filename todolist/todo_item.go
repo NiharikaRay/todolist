@@ -16,6 +16,7 @@ type Todo struct {
 	Archived      bool     `json:"archived"`
 	IsPriority    bool     `json:"isPriority"`
 	Notes         []string `json:"notes"`
+	Status				string	 `json:"in-progress"`
 }
 
 func NewTodo() *Todo {

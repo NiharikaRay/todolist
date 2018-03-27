@@ -135,6 +135,28 @@ func (a *App) EditTodo(input string) {
 	}
 }
 
+func (a *App) ChangeStatus(input string) {
+	a.Load()
+	id := a.getId(input)
+
+	if id == 1 {
+		return
+	}
+
+	todo := a.TodoList.FindById(id)
+
+	if todo == nil {
+		fmt.Println("No such id.")
+		return
+	}
+
+	parser := &Parser{}
+	if parser.ParseStatusTodo(todo, input) {
+		a.Save()
+		fmt.Println("Todo updated.")
+	}
+}
+
 func (a *App) ExpandTodo(input string) {
 	a.Load()
 	id := a.getId(input)
@@ -194,6 +216,10 @@ func (a *App) ArchiveCompleted() {
 	a.Load()
 	for _, todo := range a.TodoList.Todos() {
 		if todo.Completed {
+			todo.Archive()
+		}
+
+		if strings.TrimSpace(todo.Status) == "completed" {
 			todo.Archive()
 		}
 	}

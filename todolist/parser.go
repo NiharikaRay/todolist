@@ -49,6 +49,24 @@ func (p *Parser) ParseEditTodo(todo *Todo, input string) bool {
 	return true
 }
 
+func (p *Parser) ParseStatusTodo(todo *Todo, input string) bool {
+	r := regexp.MustCompile(`(cs)\s+(\d+)(\s+.*)`)
+	matches := r.FindStringSubmatch(input)
+
+	if len(matches) < 3 {
+		fmt.Println("Could not match command or id")
+		return false
+	}
+
+	newStatus := matches[3]
+	todo.Status = strings.TrimSpace(newStatus)
+
+	if todo.Status == "completed" {
+		todo.Completed = true
+	}
+
+	return true
+}
 func (p *Parser) Subject(input string) string {
 	if strings.Contains(input, " due") {
 		index := strings.LastIndex(input, " due")
