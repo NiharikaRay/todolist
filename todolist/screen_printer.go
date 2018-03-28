@@ -39,7 +39,7 @@ func (f *ScreenPrinter) Print(groupedTodos *GroupedTodos, printNotes bool) {
 			f.printTodo(todo)
 			if printNotes {
 				for nid, note := range todo.Notes {
-					fmt.Fprintf(f.Writer, "   %s\t%s\t\n",
+					fmt.Fprintf(f.Writer, "  \t\t\t--> %s %s\t\n",
 						cyan(strconv.Itoa(nid)), note)
 				}
 			}
